@@ -1,0 +1,36 @@
+{% extends "parking/layout.html" %}
+{% load static %}
+{% block sidebar_content %}
+
+<head>
+    <title>Manage Parking Spaces | WePark</title>
+</head>
+
+    <h1 class="main-title">Manage Parking Spaces</h1>
+
+        {% for parking_space in parking_spaces %}
+        <div>
+            <table class="parking-space-block">
+                <tr>
+                    <td style="width: 40%;text-wrap: wrap;">
+                        <a href="{% url 'update_parking_space' parking_space.id %}">
+                            <h3>{{parking_space.name}}</h3>
+                            <h4 style="font-weight: normal;">{{parking_space.description}}</h4>
+                            <h5 style="font-weight: normal;">{{parking_space.location__city}}, {{parking_space.location__postcode}} </h5>
+                        </a>
+                    </td>
+                    <td style="width: 50%;">
+                        <img src="/media/{{parking_space.image}}" alt="parking space image">
+                    </td>
+                    <td style="width: 10%;">
+                        <form action="{% url 'delete_managed_parking_space' parking_space.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit"><i class="fa fa-trash" style="font-size:24px"></i></button>
+                        </form>     
+                    </td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+    
+{% endblock %}

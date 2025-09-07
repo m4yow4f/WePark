@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<head>
+    <title>Create Account | WePark</title>
+</head>
+    <div class="center_container_login">
+        <h1> Create Account</h1>
+        <div>
+            <form action="{% url 'create_account' %}" method="post">
+                {% csrf_token %}
+                <div>
+                    <div>
+                        <div>
+                            <input type="text" name="first name" placeholder="First Name">
+                        </div>
+                        <div>
+                            <input type="text" name="last name" placeholder="Last Name">
+                        </div>
+                        <div>
+                            <input type="email" name="email" placeholder="Email">
+                        </div>
+                        <div>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+                        <div>
+                            <input type="password" name="password_conformation" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Your Password must contain at least 8 characters</li>
+                            <li>Your Password cannot be entirely numeric</li>
+                            <li>Your Password cannot be a commonly used password</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <button type="submit">Create Account</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div> 
+{% endblock %}
+
+
+

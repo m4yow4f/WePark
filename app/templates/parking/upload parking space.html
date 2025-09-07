@@ -1,0 +1,262 @@
+{% extends "parking/layout.html" %}
+{% load static %}
+{% block sidebar_content %}
+<head>
+    <title>Upload Parking Space | WePark</title>
+    <!-- This is the MapBox address API which is used to get address search suggesstions Link: https://docs.mapbox.com/mapbox-search-js/api/web/autofill/-->
+    <script id="search-js"defer src="https://api.mapbox.com/search-js/v1.0.0-beta.17/web.js"></script>
+    <script>        
+        const script = document.getElementById('search-js');
+        script.onload = function() {mapboxsearch.autofill({accessToken: 'pk.MY_API_KEY_IS_A_SECRET'});};
+    </script>
+</head>
+<h1 class="main-title">Add Parking Space</h1>
+    <div class="add-parking-space">
+        <form method="post" action="{% url 'upload_parking_space' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit" class="submit-button">Submit</button>
+            <h2 class="sub-title">General Information</h2>
+            <table>
+                <tr>
+                    <th scope="col">Name</th>
+                    <td>{{ add_parking_space.name }}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Description</th>
+                    <td>{{ add_parking_space.description }}</td>
+                </tr>
+                <tr>
+                    <th scope="col"> Image</th> 
+                    <td>{{ add_parking_space.image }}</td>
+                </tr>
+            </table>
+            {%if add_parking_space.errors %}
+            <div>
+                {%if add_parking_space.name.errors %}
+                <p>Name: <span class="errors">{{ add_parking_space.name.errors.as_text }}</span></p>
+                {% endif %}
+                {%if add_parking_space.description.errors %}
+                <p>Description: <span class="errors">{{ add_parking_space.description.errors.as_text }}</span></p>
+                {% endif %}
+                {%if add_parking_space.image.errors %}
+                <p>Image: <span class="errors">{{ add_parking_space.image.errors.as_text }}</span></p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <h2 class="sub-title">Pricing</h2>
+            <table class="add-parking-space-hours">
+                <thead>
+                    <th scope="col">Per Hour</th>
+                    <th scope="col">Per Day</th>
+                    <th scope="col">Per Week</th>
+                    <th scope="col">Per Month</th>
+                </thead>
+                <tr>
+                    <td> {{price.hourly_price}}</td>
+                    <td>{{price.daily_price}}</td>
+                    <td>{{price.weekly_price}}</td>
+                    <td>{{price.monthly_price}}</td>
+                </tr>
+            </table>
+            {%if price.errors %}
+            <div >
+                {%if price.hourly_price.errors %}
+                <p>Per Hour: <span class="errors">{{ price.hourly_price.errors.as_text }}</span></p>
+                {% endif %}
+                {%if price.daily_price.errors %}
+                <p>Per Day: <span class="errors">{{ price.daily_price.errors.as_text }}</span></p>
+                {% endif %}
+                {%if price.weekly_price.errors %}
+                <p>Per Week: <span class="errors">{{ price.weekly_price.errors.as_text }}</span></p>
+                {% endif %}
+                {%if price.monthly_price.errors %}
+                <p>Per Month: <span class="errors">{{ price.monthly_price.errors.as_text }}</span></p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <h2 class="sub-title">Opening Hours</h2>
+            <table>
+                <thead>
+                    <th scope="col" colspan="2">Monday</th>
+                    <th scope="col" colspan="2">Tuesday</th>
+                    <th scope="col" colspan="2">Wednesday</th>
+                    <th scope="col" colspan="2">Thursday</th>
+                    <th scope="col" colspan="2">Friday</th>
+                    <th scope="col" colspan="2">Saturday</th>
+                    <th scope="col" colspan="2">Sunday</th>
+                </thead>
+                <tr>
+                    <td>Open</td>
+                    <td>Close</td>
+                    <td>Open</td>
+                    <td>Close</td>
+                    <td>Open</td>
+                    <td>Close</td>
+                    <td>Open</td>
+                    <td>Close</td>
+                    <td>Open</td>
+                    <td>Close</td>
+                    <td>Open</td>
+                    <td>Close</td>
+                    <td>Open</td>
+                    <td>Close</td>
+                </tr>
+                <tr>
+                    <td>{{opening_hours.monday_open}}</td>
+                    <td>{{opening_hours.monday_close}}</td>
+                    <td>{{opening_hours.tuesday_open}}</td>
+                    <td>{{opening_hours.tuesday_close}}</td>
+                    <td>{{opening_hours.wednesday_open}}</td>
+                    <td>{{opening_hours.wednesday_close}}</td>
+                    <td>{{opening_hours.thursday_open}}</td>
+                    <td>{{opening_hours.thursday_close}}</td>
+                    <td>{{opening_hours.friday_open}}</td>
+                    <td>{{opening_hours.friday_close}}</td>
+                    <td>{{opening_hours.saturday_open}}</td>
+                    <td>{{opening_hours.saturday_close}}</td>
+                    <td>{{opening_hours.sunday_open}}</td>
+                    <td>{{opening_hours.sunday_close}}</td>
+                </tr>
+            </table>
+            {%if opening_hours.errors %}
+            <div >
+                <p class="errors">{{ opening_hours.errors.as_text }}</p>
+            </div>
+            {% endif %}
+
+            <h2 class="sub-title">Location</h2>
+            <table>
+                <tr>
+                    <th scope="col">Address Number</th>
+                    <td>{{location.address_number}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Address Street</th>
+                    <td>{{location.address_street}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">City</th>
+                    <td>{{location.city}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">County</th>
+                    <td>{{location.county}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Postcode</th>
+                    <td>{{location.postcode}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Country</th>
+                    <td>{{location.country}}</td>
+                </tr>
+            </table>
+            {%if location.errors %}
+            <div > 
+                {%if location.address_number.errors %}
+                <p>Address Number: <span class="errors">{{ location.address_number.errors.as_text }}</span></p>
+                {% endif %}
+                {%if location.address_street.errors %}
+                <p>Address Street: <span class="errors">{{ location.address_street.errors.as_text }}</span></p>
+                {% endif %}
+                {%if location.city.errors %}
+                <p>City: <span class="errors">{{ location.city.errors.as_text }}</span></p>
+                {% endif %}
+                {%if location.county.errors %}
+                <p>County: <span class="errors">{{ location.county.errors.as_text }}</span></p>
+                {% endif %}
+                {%if location.postcode.errors %}
+                <p>Postcode: <span class="errors">{{ location.postcode.errors.as_text }}</span></p>
+                {% endif %}
+                {%if location.country.errors %}
+                <p>Country: <span class="errors">{{ location.country.errors.as_text }}</span></p>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <h2 class="sub-title">Size</h2>
+            <table class="add-parking-space-size">
+                <tr>
+                    <th scope="col">Size</th>
+                    <td style="width: 25%">{{add_parking_space.size}}</td>
+                    <td>
+                        <ul style="list-style: none;">
+                           <li><b>Compact</b> is for small vehicles and motorcycles</li>
+                           <li><b>Standard</b> is for most vehicles</li> 
+                           <li><b>Oversized</b> is for large vehicles and machines</li> 
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            {%if add_parking_space.size.errors %}
+            <div > 
+                <p>Size: <span class="errors">{{ add_parking_space.size.errors.as_text }}</span></p>
+            </div>
+            {% endif %}
+
+            <h2 class="sub-title">Type</h2>
+            <table class="add-parking-space-type">
+                <tr>
+                    <th scope="col">Type</th>
+                    <td style="width: 25%">{{add_parking_space.type}}</td>
+                    <td>
+                        <ul style="list-style: none;">
+                           <li><b>Street parking</b>  spaces are on the street</li>
+                           <li><b>Car Park</b> parking spaces are in a car parking garage</li> 
+                           <li><b>Private parking</b> spaces are spaces to be rented</li> 
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            {%if add_parking_space.type.errors %}
+            <div > 
+                <p >Type: <span class="errors">{{ add_parking_space.type.errors.as_text }}</span></p>
+            </div>
+            {% endif %}
+
+            <h2 class="sub-title">Features</h2>
+            <table class="add-parking-space-features">
+                <tr>
+                    <th scope="col">Features</th>
+                    <td>{{add_parking_space.features}}</td>
+                </tr>
+            <table>
+            {%if add_parking_space.features.errors %}
+            <div > 
+                <p >Features: <span class="errors">{{ add_parking_space.features.errors.as_text }}</span></p>
+            </div>
+            {% endif %}
+
+            <h2 class="sub-title">Contact Information</h2>
+            <table>
+                <tr>
+                    <th scope="col">Email</th>
+                    <td>{{contact_information.email}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Phone Number</th>
+                    <td>{{contact_information.phone_number}}</td>
+                </tr>
+                <tr>
+                    <th scope="col">Website</th>
+                    <td>{{contact_information.website}}</td>
+                </tr>
+            </table>
+                {%if contact_information.errors %}
+                <div>
+                    {%if contact_information.email.errors %}
+                    <p >Email: <span class="errors">{{ contact_information.email.errors.as_text }}</span></p>
+                    {% endif %}
+                    {%if contact_information.phone_number.errors %}
+                    <p >Phone Number: <span class="errors">{{ contact_information.email.errors.as_text }}</span></p>
+                    {% endif %}
+                    {%if contact_information.website.errors %}
+                    <p >Website: <span class="errors">{{ contact_information.email.errors.as_text }}</span></p>
+                    {% endif %}
+                </div>
+                {% endif %}
+        </form>
+    </div>
+{% endblock %}

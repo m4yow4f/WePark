@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<head>
+    <title>Home | WePark</title>
+    <script src="{% static 'content/siteScripts.js' %}"></script>
+</head>
+
+<body background = "{% static 'images/cars.png' %}" style="background-repeat:no-repeat; background-attachment:fixed; background-size:cover;">
+        <div class="center_container content" >
+        <a  href="{% url 'home' %}"><img src="{% static '/images/logo2.png' %}" style="width: 45vw; max-width: 100%;display: flexbox;"></a>
+        <h1>Find Parking Now</h1>
+        <form action=" {% url 'search_parking_spaces' %}" method="GET">
+            {% csrf_token %} 
+            <input id="searchBox" type="search" name="search_query" placeholder="Enter a Location">
+            <button type="submit" name="submit"><i class="fa fa-search"></i></button>
+        </form> 
+        <!-- This is the Google Places Search API used to get location suggestions from an input - Link: https://developers.google.com/maps/documentation/places/web-service/search#:~:text=The%20Places%20API%20lets%20you,proximity%20or%20a%20text%20string. -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=MY_API_KEY_IS_A_SECRET&libraries=places&callback=initAutocomplete" async defer></script>
+        <a  href="/"><img src="{% static '/images/park me now.png' %}" style="margin-top: 2vh;"></a>
+    </div> 
+</body>
+{% endblock %}

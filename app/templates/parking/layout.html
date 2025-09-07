@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block sidebar %}
+
+    <div class="sidebar">
+        <ul>
+            <li class = 'navObject'><a class='navLink' href="{% url 'top_rated_spaces' %}">Top-Rated</a></li>
+            <li class = 'navObject' ><a class='navLink' href="{% url 'bookmarked_parking' %}">My Bookmarked Parking</a></li>
+            <li class = 'navObject'>
+                <div class="dropdown">
+                    <a class='navLink' href="{% url 'rent_out_parking_spaces' %}">Rent out Parking Spaces <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'upload_parking_space' %}" >Upload Parking Space</a>
+                        <a href="{% url 'manage_parking_spaces' %}">Manage Parking Spaces</a>
+                    </div>
+                </div> 
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar_block content">
+        <div class="sidebar_content">
+            {% block sidebar_content %} {% endblock sidebar_content%}
+        </div>
+    </div>
+
+
+
+
+{% endblock%}
+

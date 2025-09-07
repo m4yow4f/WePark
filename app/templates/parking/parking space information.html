@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+
+<head>
+    <title> {{parking_space.name}} | WePark</title>
+</head>
+    <div  class="image_header" style='background-image: url("/media/{{parking_space.image}}");'>
+        <a href="#space_title_and_bookmark"><span style="position: absolute;bottom: 5%;right: 50vw;"><i class="fa fa-angle-double-down" style="color: #d1e2f3;font-size: 2.5em;transform: scale(2,1);"></i></span></a>
+    </div>
+
+    <div class="content" >
+
+        <div style="float:left">
+            <div>
+                {% if parking_space_isBookmarked %}
+                <form action="{% url 'remove_bookmarked_parking_space' parking_space.id %}" method="post">
+                    {% csrf_token %}
+                    <div  id="space_title_and_bookmark">
+                        <span style="vertical-align: middle;text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 class="main-title" style="display: table-cell;vertical-align: inherit;text-align: center;">{{parking_space.name}}</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input style="height: 5em;vertical-align:middle;" type="image" src="/static/images/remove bookmarked parking.png" alt="bookmark parking space">
+                    </div>
+                </form>
+                {% else %}
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    <div  id="space_title_and_bookmark">
+                        <span style="vertical-align: middle;text-align: center;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h1 class="main-title" style="display: table-cell;vertical-align: inherit;text-align: center;">{{parking_space.name}}</h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <input style="height: 5em;vertical-align:middle;" type="image" src="/static/images/bookmark parking space.png" alt="bookmark parking space">
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        <div style="float:right">     
+        </div>
+    </div>
+{% endblock %}

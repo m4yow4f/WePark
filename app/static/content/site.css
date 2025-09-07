@@ -1,0 +1,382 @@
+/* the design of the main page */
+body
+{
+    background-color: #d1e2f3;
+    margin: 0px;
+    display:flex;
+    flex-direction:column;
+    min-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.content
+{
+    margin: 2vw 2vh;
+}
+.main-title
+{
+    color: black;
+    text-decoration: underline;
+}
+.sub-title
+{
+    color: black;
+    text-decoration: underline;
+    font-weight: normal;
+    font-size: medium;
+    
+}
+
+.sidebar_block
+{
+    margin-left:20vw;
+    background-color:#c9d9f7;
+    border-style: solid;
+    border-color: #c9dce8;
+    z-index: 2;
+    height: 75vh;
+    margin-bottom: 0;
+    overflow-y:auto;
+}
+.sidebar_content
+{
+    padding: 2vh 2vw;
+    white-space:nowrap;
+}
+
+article
+{
+    flex:1;
+}
+
+/* the sidebar container */
+.sidebar
+{
+    display: block;
+    height:100%;
+    width:20vw;
+    max-width: fit-content;
+    position:fixed;    
+    top: 11.75vh;
+    left: 0;
+    background-color: #4e83e4;
+    z-index:1;
+    left: -2vw;
+}
+
+.sidebar .navLink
+
+{
+    display: block;
+    background-color: #d0e1f1;
+    color: black;
+    border-style: solid;
+    border-color: black;
+}
+.navbar
+{
+    position:sticky;
+    top:0px;
+    z-index:999;
+}
+
+/* the navbar container */
+.navbar_style
+{
+    display: inline-block;
+    background-color: #2327fc;
+    list-style-type: none;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+/* the different blocks of the navbar */
+.navbar .navObject
+{
+    float: left;
+}
+.navObject
+{
+    display:block;
+    padding:1vh;
+}
+.navObject-center
+{
+    margin-top: 2.4vh
+}
+
+.navObject a:hover
+{
+    color: #2327fc;
+}
+.navObject img
+{
+    max-width:50%;
+    max-height: 25%;
+    margin-bottom:-0.5%;
+}
+/* the different links in the blocks of the navbar */
+.navLink
+{
+    display:block;
+    background-color: #79aada;
+    padding:0.55vh;
+    border-style: solid;
+    border-color: #7c9ff9;
+    color:#ffffff;
+    font-weight: bold;
+    text-align:center;
+    text-decoration: none;
+    font-size: 3vh 3vw;
+}
+/* the dropdown container */
+.dropdown
+{
+    position: relative;
+    display: inline-block;
+}
+/* the dropdown blocks */
+.dropdown-content
+{
+    display: none;
+    position:absolute;
+    background-color: white;
+    width: 100%;
+    z-index: 2;
+}
+/* the links in the drop down container */
+.dropdown-content a
+{
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px;
+    text-align: left;
+    color: #79aada;
+    text-decoration: none;
+}
+.dropdown:hover .dropdown-content
+{
+    display: block;
+}
+
+/* positioning of items on main screen */
+.center_container
+{
+    display:block;
+    max-block-size:100%;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateY(12.5%);
+    text-align: center;
+}
+
+/* design of the text on the main screen */
+.center_container h1
+{
+    display:block;
+    color:white;
+    text-decoration:underline;
+    text-align: center;
+    font-size: 40px;
+}
+.center_container input
+{
+    width: 47vh;
+    max-width: 90%;
+    height: 2.75vh;
+}
+
+.center_container_login
+{
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    transform: translateY(25%);
+    text-align: center;
+}
+
+.center_container_login input
+{
+    display: inline-flex;
+    width:33.6%;
+}
+
+.center_container_login button
+{
+    display: inline-block;
+    margin-top: 4vh;
+    background-color: #5889e6;
+    min-width: fit-content;
+    width:13vw;
+    padding: 1vh;
+    border-style: solid;
+    border-color: #4f6488;
+    color:#ffffff;
+    font-weight: bold;
+    text-align:center;
+    text-decoration: none;
+    font-size:small;
+}
+
+.center_container_login li
+{
+    list-style: none;
+}
+.submit-button
+{
+    display: block;
+    font-size:x-large;
+    font-weight:bold;
+    background-color: #cfe1f2;
+    color: black;
+    border-style: solid;
+    border-color: black;
+    float: right;
+    margin-bottom: 1%;
+}
+.add-parking-space
+{
+    color:black;
+    text-align: left;
+}
+.add-parking-space button:hover
+{
+    color:red;
+}
+.add-parking-space table,th,td
+{
+    border-collapse: separate;
+    table-layout: fixed;
+    width: 100%;
+}
+.add-parking-space th
+{
+    font-weight: normal;
+    width: 25%;
+}
+
+.add-parking-space td
+{
+    height:3vh;
+    padding: 0.1%;
+}
+.add-parking-space textarea
+{
+    width: 99%;
+    height: 3vh;
+    resize:vertical;
+}
+.add-parking-space input
+{
+    height: 3vh;
+    width: 99%;
+}
+.add-parking-space-hours input
+{
+    height: 3vh;
+    width: auto;
+}
+.add-parking-space-size select
+{
+    height: 25%;
+    width: 100%;
+}
+.add-parking-space-type select
+{
+    height: 25%;
+    width: 100%;
+}
+.add-parking-space-features input
+{
+    width: 25%;
+    height:2vh;
+}
+.errors
+{
+    text-wrap:wrap;
+    font-style: italic;
+    color: red;
+}
+.add-parking-space p
+{
+    font-size: small;
+}
+.parking-space-block
+{
+    border:2px solid;
+    border-color:silver;
+    border-collapse:collapse;
+    table-layout:auto;
+    text-align: center;
+    width:60%;
+    margin-left:auto;
+    margin-right: auto;
+    margin-bottom: 2%;
+}
+
+.parking-space-block img
+{
+    display: block;
+    width: 100%;
+    height:100%;
+    min-height: 15vh;
+    max-height: 30vh;
+    overflow: hidden;
+}
+
+.parking-space-block a
+{
+    color:inherit;
+    text-decoration: none;
+}
+
+.image_header
+{
+    background-attachment: fixed;
+    background-size:cover;
+    height:88vh;
+    width: 100%; 
+    margin: 0px;
+    padding: 0px;
+    margin-top: -0.3%;
+}
+#space_title_and_bookmark
+{
+    border: black 2px solid;
+    max-width: fit-content;
+}
+  
+/* css for monitor size screens default being smaller screens*/
+@media (min-width:1500px)
+{
+    .sidebar
+    {
+        top:8.75vh;
+        left:-2vw;
+    }
+    .sidebar_block
+    {
+        margin-left:14.5vw;
+        height: 79vh;
+    }
+    .navObject-center
+    {
+        margin-top: 1.4vh;
+    }
+    .sidebar .dropdown-content a
+    {
+        width: 10.5vw;
+    }
+    .dropdown-content a
+    {
+        width: 4.05vw;
+    }
+    .content-sizing a
+    {
+        width: 4.35vw;
+    }
+
+}

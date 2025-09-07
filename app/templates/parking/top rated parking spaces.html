@@ -1,0 +1,40 @@
+{% extends "parking/layout.html" %}
+{% load static %}
+{% block sidebar_content %}
+
+<head>
+    <title>Top Rated Spaces | WePark</title>
+    <!-- This is a free jquery plugin used to be able to get a number converted to stars : https://www.jqueryscript.net/other/product-ratings-jstars.html -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="{% static 'content/jstars.min.js' %}"></script>
+</head>
+ 
+<h1 class="main-title">Top Rated!</h1>
+    
+{% for parking_space,reviews_rating,reviews_list in parking_spaces %}
+    <div>
+        <table class="parking-space-block">
+            <tr>
+                <td style="width: 60%;text-wrap: wrap;">
+                    <a href="{% url 'parking_space_information' parking_space.name parking_space.id %}">
+                    <h3>{{parking_space.name}}</h3>
+                    <div class="jstars" data-value="{{reviews_rating}}" data-total-stars="5" data-color="#edb51d" data-empty-color="black" data-size="40px"></div>
+                    <h5 style="font-weight: normal;text-align: left;">Reviews
+                        <div style="text-align: center;overflow-y: scroll;text-wrap: wrap;border: 2px grey solid;height: 75px;">
+                            {% for review in reviews_list%}
+                                <p>{{review}}</p>
+                            {% empty %}
+                                No Reviews
+                            {% endfor %}
+                        </div>
+                    </h5>
+                </a>
+                </td>
+                <td style="width: 40%;">
+                    <img src="/media/{{parking_space.image}}" alt="parking space image">
+                </td>
+            </tr>
+        </table>
+    </div>
+    {% endfor %}
+{% endblock %}

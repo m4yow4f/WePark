@@ -1,0 +1,48 @@
+{% extends "parking/layout.html" %}
+{% load static %}
+{% block sidebar_content %}
+
+<head>
+    <title>Bookmarked Parking Spaces | WePark</title>
+</head>
+
+    <h1 class="main-title">Bookmarked Parking Spaces</h1>
+
+        {% for parking_space,features_list in parking_spaces %}
+        <div>
+            <h2>{{parking_space.planned_datetime}}</h2>
+            <table class="parking-space-block">
+                <tr>
+                    <td style="width: 50%;text-wrap: wrap;">
+                        <a href="{% url 'parking_space_information' parking_space.parking_space__name parking_space.parking_space__id %}">
+                            <h3>{{parking_space.parking_space__name}}</h3>
+                            <h1 style="font-weight: normal;">{{parking_space.parking_space__price__hourly_price_currency}}{{parking_space.parking_space__price__hourly_price}}</h1>
+                            <h4 style="font-weight: normal;">
+                            {% for feature in features_list%}
+                                {% if forloop.last %}
+                                    {{feature}}
+                                {% else %}
+                                    {{feature}} -
+                                {% endif %}
+                                {% empty %}
+                                    No Features-
+                            {% endfor %}
+                            </h4>
+                            <h4 style="font-weight: normal;">{{parking_space.parking_space__location__city}}, {{parking_space.parking_space__location__postcode}} </h4>
+                        </a>
+                    </td>
+                    <td style="width: 40%;">
+                        <img src="/media/{{parking_space.parking_space__image}}" alt="parking space image">
+                    </td>
+                    <td style="width: 10%;">
+                        <form action="{% url 'remove_bookmarked_parking_space' parking_space.id %}" method="post">
+                            {% csrf_token %}
+                            <input style="height:50px;border:black 3px solid" type="image" src="/static/images/remove bookmarked parking.png" alt="remove bookmarked parking space">
+                        </form>     
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+{% endblock %}
