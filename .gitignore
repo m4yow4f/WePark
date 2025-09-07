@@ -1,0 +1,7 @@
+app/media
+WePark_venv
+db.sqlite3
+.vscode
+WePark/__pycache__
+app/__pycache__
+app/migrations
